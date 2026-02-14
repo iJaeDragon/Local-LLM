@@ -48,6 +48,9 @@ pip install scipy
 
 # 텐서 연산
 pip install einops
+
+# LoRA (Low-Rank Adaptation)
+pip install peft datasets bitsandbytes
 ```
 
 ## 모델 탐색 및 다운로드
