@@ -25,7 +25,7 @@ ChatGPT나 Claude 같은 서비스는 인터넷을 통해 외부 서버에 요�
 딥시크 세팅은 올라마라는 프로그램을 활용하기로 했다.
 
 올라마는 로컬 환경에서 LLM을 쉽게 실행할 수 있도록 해주는 경량 플랫폼이다.
-복잡한 설정 과정 없이 바로 사용할 수 있다.
+기존에는 필요한 소프트웨어, 라이브러리, 모델 등을 직접 다운로드 받았어야 했었지만 이러한 과정을 생략하고 복잡한 설정 없이 바로 사용할 수 있다.
 
 ### 설치 및 실행
 
@@ -42,8 +42,14 @@ ollama version is 0.16.1
 
 <img width="1905" height="943" alt="image" src="https://github.com/user-attachments/assets/9cc85e10-7788-44b0-ad49-b74ee3ae7294" />
 
-4. 터미널에서 원하는 모델을 다운로드하고 실행한다.
+4. 터미널에서 원하는 모델을 다운로드한다.
 
 ```bash
 > ollama run rcpsy2022/deepseek-coder-v2
+```
+
+5. 다운로드 받은 모델을 실행한다.
+   
+```bash
+> ollama run rcpsy2022/deepseek-coder-v2:latest
 ```
