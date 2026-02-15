@@ -81,6 +81,8 @@ tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base"
 model = AutoModelForCausalLM.from_pretrained("deepseek-ai/deepseek-coder-1.3b-base")
 ```
 
+다운로드한 모델 경로 : C:\Users\User\.cache\huggingface\hub
+
 ## 테스트 코드
 
 다운로드한 모델을 테스트한다.
@@ -137,12 +139,22 @@ print(result)
 
 ### Fine-tuning 방식 비교
 
-Fine-tuning 방식은 Full Model Fine-tuning과 LoRA Fine-tuning 두 가지로 나뉘며, 각 특징은 다음과 같다.
+Fine-tuning 방식은 Full Model Fine-tuning과 LoRA(Low-Rank Adaptation) Fine-tuning 두 가지로 나뉘며, 각 특징은 다음과 같다.
 
 | 방식 | 학습 범위 | VRAM/시간 | 장점 | 단점 |
 |------|----------|-----------|------|------|
 | Full Model Fine-tuning | 전체 weight | 매우 높음 | 모델 능력 그대로 사용 가능 | 학습 부담 ↑, 데이터 적으면 과적합 ↑ |
 | LoRA Fine-tuning | 일부 어댑터 | 낮음 | VRAM 절약, 빠른 학습, 여러 LoRA 병행 가능 | 베이스 능력 밖 지식 학습 한계 |
+
+Full Fine-tuning은 사전학습된 베이스 모델의 모든 가중치(weight)를 업데이트하는 방식이다.
+즉, 모델 내부의 수십억 개 파라미터를 전부 다시 학습한다.
+이 방식은 모델의 표현 능력을 최대한 활용할 수 있다는 장점이 있다.
+도메인이 크게 다르거나, 모델 구조 수준에서 적응이 필요한 경우에는 가장 강력한 방법이다.
+하지만 VRAM 사용량이 매우 크며, 학습 시간이 오래 걸리고 저장 용량이 크다. 데이터가 적으면 과적합 위험도 존재
+
+LoRA Fine-tuning은 베이스 모델의 가중치는 고정(freeze) 하고,
+Attention 등의 일부 레이어에 작은 보조 행렬(저랭크 행렬)을 추가해 그 부분만 학습한다.
+즉, 전체 모델을 바꾸는 것이 아니라 "출력 경로를 보정하는 작은 어댑터"를 학습하는 방식이다.
 
 간단한 테스트를 위해 LoRA Fine-tuning 방식으로 진행했다.
 
